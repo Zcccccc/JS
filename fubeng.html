@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>点名系统</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing:boder-box;
+				font-family: Microsoft Yahei;
+			}
+			a{
+				text-decoration: none;
+				color: inherit;
+			}
+			/*公用*/
+			.page{
+				width: 320px;
+				height: 568px;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform:translate(-50%, -50%);
+				background-color: white;
+				box-shadow: 0 0 4px 0 rgb(204, 204, 204);
+			}
+			.dialog{
+				width: 300px;
+				height: 540px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform:translate(-50%, -50%);
+				background-color: rgba(255, 255 ,255, .9);
+				box-shadow: 0 0 4px 0 rgb(204, 204, 204);
+			}
+			.dialog h2{
+				text-align: center;
+				line-height: 2;
+			}
+			.hidden{
+				display: none;
+			}
+			.btn{
+				width: 120px;
+				height: 30px;
+				text-align: center;
+				cursor: pointer;
+			}
+			.btn-bg{
+				line-height: 30px;
+			}
+			.btn-bd{
+				border-width: 1px;
+				border-style: solid;
+				line-height: 28px;
+			}
+			.ipt-txt{
+				width: 160px;
+				height: 30px;
+				padding-right: 8px;
+				padding-left: 8px;
+			}
+			/*欢迎页*/
+			.welcome{
+				background-image: url(http://a4.topitme.com/l/201006/23/12772785212389.jpg);
+				background-size: 100%, 100%;
+			}
+			.welcome h1{
+				margin-top: 160px;
+				margin-bottom: 120px;
+				text-align: center;
+				color: red;
+			}
+			.welcome h1:after{
+				margin-left: 10px;
+				content: "V0.0.1";
+				font-size: 16px;
+			}
+			.welcome .btn{
+				display: block;
+				margin: 0 auto;
+			}
+			.welcome .btn.start{
+				margin-top: 10px;
+				color: white;
+				background-color: rgb(32, 192, 32); 
+			}
+			.welcome .btn.setting{
+				margin-top: 10px;
+				color: white;
+				background-color:  rgb(138, 138, 138);
+			}
+			.welcome .btn.exit{
+				margin-top: 10px;
+				color: white;
+				background-color:  rgb(231, 32, 32);
+			}
+			.welcome .dialog{
+				text-align: center;
+			}
+			.welcome .dialog .ipt-txt{
+				margin-top: 10px;
+			}
+			.welcome .dialog .btn.sure{
+				margin-top: 300px;
+				background-color: white;
+				border-color:  rgb(138, 138, 138);
+				color: rgb(138, 138, 138);
+			}
+			/*加载页*/
+			.loading{
+				background-color: black;
+			}
+			.loading .loadingText{
+				margin-top: 400px;
+				text-align: center;
+				color: white;
+			}
+			.loading .loadingText:after{
+				content: "%";
+			}
+			.loading .loadingBar{
+				margin: 10px auto 0;
+				width: 280px;
+				height: 20px;
+				border: 1px solid white;
+			}
+			.loading .loadingBar .progress{
+				width: 0;
+				height: 100%;
+				background-color: white;
+			}
+			/*主页*/
+			.main{
+
+			}
+			.main .header{
+				overflow: hidden;
+				padding: 20px;
+			}
+			.main .footer{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				border-top: 1px solid rgb(204, 204, 204);
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+			.main .btn.back{
+				float: right;
+				display: block;
+				background-color: rgb(132, 132, 132);
+				color: white;
+			}
+			.main .btn.start{
+				margin: 0 auto;
+				display: block;
+				background-color: rgb(32, 192, 32);
+				color: white;
+			}
+			.main .ipt-txt{
+				margin-top: 10px;
+				vertical-align: middle;
+			}
+			.main .btn.congrate, .main .btn.regret{
+				margin-top: 10px;
+				vertical-align: middle;
+				color: white;
+				display: inline-block;
+			}
+			.main .btn.congrate{
+				background-color: rgb(255, 128, 0);
+			}
+			.main .btn.regret{
+				background-color: rgb(132, 132, 132);
+			}
+			.main .container{
+				margin-right: 10px;
+				margin-left: 10px;
+			}
+			.main .box{
+				width: 40px;
+				height: 40px;
+				background-color: rgb(240, 180, 90);
+				border: 1px solid rgb(204, 204, 204);
+				text-align: center;
+				line-height: 40px;
+				display: inline-block;
+				color: white;
+			}
+			.main .box.current{
+				background-color: red;
+			}
+			.main .box.flash{
+				animation:flash 2s forwards;
+			}
+			@keyframes flash{
+				0%{
+					background-color:red;
+				}
+				10%{
+					background-color:rgb(240, 180, 90);
+				}
+				20%{
+					background-color:red;
+				}
+				30%{
+					background-color:rgb(240, 180, 90);
+				}
+				40%{
+					background-color:red;
+				}
+				50%{
+					background-color:rgb(240, 180, 90);
+				}
+				60%{
+					background-color:red;
+				}
+				70%{
+					background-color:rgb(240, 180, 90);
+				}
+				80%{
+					background-color:red;
+				}
+				90%{
+					background-color:rgb(240, 180, 90);
+				}
+				100%{
+					background-color:red;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="lottery">
+			<div class="page welcome">
+				<h1>点名系统</h1>
+				<a class="btn btn-bg start">开始</a>
+				<a class="btn btn-bg setting">设置</a>
+				<a class="btn btn-bg exit">退出</a>
+				<div class="dialog hidden">
+					<h2>设置</h2>
+					<input class="ipt-txt sum" value="50"/>
+					<input class="ipt-txt history" placeholder="历史记录">
+					<a class="btn btn-bd sure">确认</a>
+				</div>
+			</div>
+			<div class="page loading hidden">
+				<p class="loadingText">0</p>
+				<div class="loadingBar">
+					<div class="progress"></div>
+				</div>
+			</div>
+			<div class="page main hidden">
+				<div class="header">
+					<a class="btn btn-bg back">返回</a>
+				</div>
+				<div class="footer">
+					<a class="btn btn-bg start">开始</a>
+					<input class="ipt-txt congrate" />
+					<a class="btn btn-bg congrate">恭喜</a>
+					<input class="ipt-txt regret" />
+					<a class="btn btn-bg regret">遗憾</a>
+				</div>
+			</div>
+		</div>
+		<script>
+			function Lottery(){
+				//工具
+				function qs(parentNode, selector){
+					return parentNode.querySelector(selector);
+				}
+				function qsa(parentNode, selector){
+					return parentNode.querySelectorAll(selector);
+				}
+				function isEquals(arry1, arry2){
+					var i = 0,
+					len1 = arry1.length,
+					len2 = arry2.length,
+					result = 1;
+					if(len1 !== len2){
+						return 0;
+					}else{
+						for(; i < len1; i++){
+							result = result && (arry1 === arry2);
+						}
+					}
+					return result;
+				}
+				function _setInterval(callback, duration){
+					var t = setTimeout(function(){
+						clearTimeout(t);
+						callback() && _setInterval(callback, duration + 5);
+					}, duration);
+				}
+
+				var lottery = qs(document, ".lottery"),
+					arrHistory,
+					needUpdate = 1;
+				//欢迎页
+				function Welcome(){
+					var pageWlecome = qs(lottery, ".welcome"),
+						btnStart = qs(pageWlecome, ".btn.start"),
+						btnSetting = qs(pageWlecome, ".btn.setting"),
+						btnExit = qs(pageWlecome, ".btn.exit"),
+						dialog = qs(pageWlecome, ".dialog");
+					//start
+					btnStart.onclick = function(){
+						Main.loading();
+					};
+					//setting
+					btnSetting.onclick = function(){
+						dialog.classList.remove("hidden");
+					};
+					//exit
+					btnExit.onclick = function(){
+						lottery.parentNode.removeChild(lottery);
+					};
+						//设置页
+					function Setting(){
+						var btnSure = qs(pageWlecome, ".btn.sure"),
+							iptSum = qs(pageWlecome, ".ipt-txt.sum"),
+							iptHistory = qs(pageWlecome, ".ipt-txt.history"),
+							tempHistory;
+							arrHistory = new Array(+iptSum.value);
+							//确认按钮
+							btnSure.onclick = function(){
+								tempHistory = iptHistory.value.replace(/\s/g, "");
+								arrHistory = tempHistory ? tempHistory.split(",").map(function(list){
+									return +list;
+								}) : new Array(+iptSum.value);
+								Main.setData(arrHistory);
+								dialog.classList.add("hidden");
+							}
+					}
+					Setting();
+				}
+				var Main = function(){
+					var main = qs(lottery, ".page.main"),
+						btnBack = qs(main, ".btn.back"),
+						btnStart = qs(main, ".btn.start"),
+						btnCongrate = qs(main, ".btn.congrate"),
+						btnRegret = qs(main, ".btn.regret"),
+						iptCongrate = qs(main, ".ipt-txt.congrate"),
+						iptRegret = qs(main, ".ipt-txt.regret"),
+						container,
+						mainHistory = [],
+						historyLen,
+						arrBox = [],
+						previousIndex,
+						currentIndex = 0,
+						runTimer,
+						stopTimer,
+						count = 0,
+						shouldRun;
+						//加载页
+					function Loading(){
+						var loading = qs(lottery, ".page.loading"),
+							loadingText = qs(loading, ".loadingText"),
+							progress = qs(loading, ".progress"),
+							progressValue = 0,
+							progressTimer,
+							delayTimer;
+						loading.classList.remove("hidden");
+						progressTimer = setInterval(function(){
+							if(progressValue < 100){
+								progressValue += Math.ceil(Math.random()*5);
+								progressValue = Math.min(100, progressValue);
+								progress.style.width = progressValue + "%";
+								loadingText.innerText = progressValue;
+							}else{
+								clearInterval(progressTimer);
+								delayTimer = setTimeout(function(){
+									clearTimeout(delayTimer);
+								progress.style.width = 0;
+									loading.classList.add("hidden");
+									main.classList.remove("hidden");
+									SetData(arrHistory);
+								}, 200);
+							}
+						}, 100);
+					}
+					//配置数据
+					function SetData(newHistory){
+						if(!isEquals(mainHistory, newHistory)){
+							mainHistory = newHistory;
+							Init();
+						}
+					}
+					//初始化
+					function Init(){
+						container && container.parentNode.removeChild(container);
+						container = document.createElement("div");
+						container.className = "container";
+						historyLen = mainHistory.length;
+						for(var i = 0; i < historyLen; i++){
+							var ele = CreateBox(mainHistory[i] || i+1);
+							arrBox[i] = {
+								dom : ele,
+								value : mainHistory[i] || i+1
+							};
+							container.appendChild(ele);
+						}
+						main.appendChild(container);
+					}
+					function CreateBox(text){
+						var ele = document.createElement("div");
+						ele.classList.add("box");
+						ele.innerText = text;
+						return ele;
+					}
+					//获取前一个下标
+					function getPreviousIndex(index){
+						return index - 1 < 0 ? historyLen - 1 : index -1;
+					}
+					//返回按钮
+					btnBack.onclick = function(){
+						main.classList.add("hidden");
+					};
+					//开始按钮
+					btnStart.onclick = function(){
+						runTimer = _setInterval(function(){
+							count++;
+							previousIndex = getPreviousIndex(currentIndex);
+							arrBox[previousIndex].dom.classList.remove("current");
+							arrBox[currentIndex].dom.classList.add("current");
+							shouldRun = count < (mainHistory.length * (Math.random() + 1));
+							if(!shouldRun){
+								count = 0;
+								var temp = currentIndex;
+								arrBox[temp].dom.classList.remove("current");
+								arrBox[temp].dom.classList.add("flash");
+								arrBox[temp].dom.addEventListener("animationend", function(){
+									arrBox[temp].dom.classList.remove("flash");
+									arrBox[temp].dom.classList.add("current");
+								}, 0);
+							}
+							currentIndex = currentIndex + 2 > historyLen ? 0 : currentIndex + 1;
+							return shouldRun;
+						}, 10);
+					};
+					//恭喜按钮
+					btnCongrate.onclick = function(){
+						arrBox = arrBox.filter(function(list, index){
+							if(list.value === +iptCongrate.value){
+								arrBox[index].dom.parentNode.removeChild(arrBox[index].dom);
+							}
+							return list.value !== +iptCongrate.value;
+						});
+						historyLen = arrBox.length;
+					};
+					//遗憾按钮
+					btnRegret.onclick = function(){
+						var ele = CreateBox(+iptRegret.value);
+						arrBox.push({
+							dom : ele,
+							value : +iptRegret.value
+						});
+						mainHistory.push(undefined);
+						historyLen = mainHistory.length;
+						container.appendChild(ele);
+					}
+					return {
+						loading : Loading,
+						setData : SetData
+					};	
+				}();
+				Welcome();
+			}
+			Lottery();
+		</script>
+	</body>
+</html>

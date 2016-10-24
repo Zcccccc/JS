@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>review</title>
+	</head>
+	<body>
+		<script>
+			var num = 666;
+			console.log(num.toString());
+			console.log(num.toFixed(3));
+
+			console.log(parseInt("asdasdsa"));//NaN
+			console.log(parseInt("123213"));
+			console.log(parseInt("00006543201.213"));//6543201
+			console.log(parseInt("asds_21231"));//NaN
+			console.log(parseInt("51321dsf"));//51321
+			console.log(parseInt("321235Q#$#@$%#"));//321235
+
+			console.log(parseFloat("13215.123.12"));//13215.123
+			console.log(parseFloat("123.123asdsad"));//123.123
+			console.log(parseFloat("12313.00"));//12313
+
+			console.log("3113213" - 0);//3113213
+			console.log("3113213" + 0);//31132130 !!!!字符串
+			console.log("123sadds" - 0);//NaN
+			console.log(+"123");//123
+			console.log(+"123.123")//123.123
+			console.log(+"132asd")//NaN
+			console.log("123" * 1);//123
+
+			//数学处理
+			console.log(Math.E);//自然常数
+			console.log(Math.PI);//圆周率
+			console.log(Math.max(1,2));//返回更大的值
+			console.log(Math.min(1,2));//返回更小的值
+			console.log(Math.pow(2, 10));//幂运算
+			console.log(Math.sqrt(9));//开方
+			console.log(Math.floor(2.3));//保留整数位（地板）
+			console.log(Math.ceil(2.1));//向上取整(天花板)
+			console.log(Math.round(2.4));//四舍五入
+			console.log(Math.random());//[0-1)的随机小数
+			console.log(Math.floor(Math.random() * 10 + 50));
+			console.log(Math.floor(Math.random() * 8 - 3))
+			
+
+		</script>
+	</body>
+</html>

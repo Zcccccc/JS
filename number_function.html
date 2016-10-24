@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>review</title>
+	</head>
+	<body>
+		<script>
+			//数字方法
+			var num = 666;
+			//转为字符串
+			console.log(num.toString());
+			//保留n位小数
+			console.log(num.toFixed(3));
+
+			//转数字
+			console.log(parseInt("asfawerafa")); //NaN
+			console.log(parseInt("rwda_9709123")); //NaN
+			console.log(parseInt("1516124312.123")); //1516124312
+			console.log(parseInt("0000760900")); //760900
+			console.log(parseInt("070123adfa")); //70123
+			console.log(parseInt("070123ad!@@#%fa")) ; //70123
+
+			console.log(parseFloat("123213.123.123123")); //123213.123
+			console.log(parseFloat("123213.123ade123sf")); //123213.123
+			console.log(parseFloat("123123.000")); //123123
+
+			console.log("132451" + 0); //1324510 !!!!!!字符串拼接
+			console.log("132451" - 0); //132451
+			console.log("13212afasfd" - 0); //NaN
+			console.log("123123" * 1); //123123
+			console.log("123123" / 1); //123123
+			console.log(+"23154124.123"); //23154124.123
+			console.log(+"23154124.00"); //23154124
+			console.log(+"23154asdf124"); //NaN
+
+			//数学处理
+			console.log(Math.E); //自然常数
+			console.log(Math.PI); //圆周率
+			console.log(Math.pow(2, 10)); //幂运算
+			console.log(Math.sqrt(2)); //开方
+			console.log(Math.floor(2.7)); //保留整数位(地板)
+			console.log(Math.ceil(2.1)); //向上取整(天花板)
+			console.log(Math.round(2.4)); //四舍五入
+			console.log(Math.random()) //[0, 1)的随机小数
+			console.log(Math.floor(30 + Math.random() * 40)); //[30, 70)的随机整数
+			console.log(Math.floor(-3 + Math.random() * 5)); //[-3, 5)的随机整数
+		</script>
+	</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>review</title>
+	</head>
+	<body>
+		<script>
+		// var a = 1;
+		// console.log(a,window.a);
+		// var b,
+		// 	c,
+		// 	d = 2;
+		// console.log(b,c,d);
+		// a = [1, 2, 3];
+		// console.log(typeof a);
+		// a = new Array([1, 2]);
+		// console.log(a[0][1]);
+		// a = NaN;
+		// console.log(typeof a)
+
+
+		// var a = 0;
+		// console.log(a || !console.log(666) && console.log(233));
+		// for (;a == 0;console.log(a)){
+		// 	console.log(1);
+		// 	a = 1;
+		// }
+	 // 	var arr = [6, 66, 666];
+		// // for(;arr.length < 10;){
+		// // 	arr[arr.length] = 11;
+		// // 	console.log(arr);
+		// // }
+
+		// while(arr.length < 10){
+		// 	console.log(arr.length);
+		// 	arr[arr.length] = 11;
+		// 	console.log(arr);
+		// }
+		// a(1, 2);
+		// function a(p){
+		// 	console.log(123);
+		// 	console.log(p, q);
+		// }
+
+		// c = 1;
+		// console.log(c);
+		// var c = 2;
+		// console.log(c);
+
+		// function b(){
+		// 	d = 5;
+		// }
+		// b();
+		// console.log(d);
+		// a = undefined;
+		// function a(){};
+		// // var a = function (){};
+		// console.log(a);
+
+		// var b = function c(){
+		// 	b = 1;
+		// };
+		// b();
+		// console.log(c);
+
+		// function d(){
+		// 	var a = 1;
+		// 	return function (){
+		// 		console.log(233);
+		// 		return a++;
+		// 	};
+		// }
+		// console.log(d()());
+
+		// function a(){
+		// 	var b = 1;
+		// 	return function(){
+		// 		return b++;
+		// 	};
+		// }
+		// var c = a();
+		// c();
+		// c();
+		// c();
+		// c = a();
+		// console.log(c());
+
+		function Person(name,age){
+			var sex = "male", _age = age || 20;
+			return function(_sex){
+				console.log(name + "'s sex is" + (_sex || sex) + ", age is" + _age + ".");
+				console.log(name + "is walking");
+			};
+		}
+		var jack = Person("Jack", 30);
+		jack();
+		var tom = Person("Tom");
+		tom("female");
+
+	 	</script>
+	 	<script>
+	 		function X(x,y){
+	 			console.log(arguments[0][0]);//获取调用当前方法时传的参数
+	 			console.log(arguments.callee);//获取调用并传参数的方法
+	 			console.log(arguments.callee.caller);//获取当前方法被何方法调用
+	 			console.log(X.caller);//获取当前方法被何方法调用
+	 		}
+	 		function y(){
+	 				X([1, "asds"], 5);
+	 		}
+	 		var z = function(){
+	 			X([3,2]);
+	 		}
+	 		y();
+	 		z();
+	 	</script>
+	 	<script>
+	 		//函数声明，函数表达式
+
+	 		//调用方法的（）所调用的是一个返回值为方法的语法体
+	 		//自执行方法       
+	 		var o = function(){
+	 			return 233;
+	 		}();
+	 		console.log(o);
+
+	 		//自执行方法2
+	 		(function(){
+	 			console.log(123);
+	 		})();//闭包
+	 	</script>
+	</body>
+</html>	

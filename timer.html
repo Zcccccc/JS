@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>timer</title>
+	</head>
+	<body>
+	<!-- <span></span><span></span> ：<span></span><span></span> -->
+	<p>00:00</p>
+	<a>start</a>
+	<a>stop</a>
+		<script>
+		// var time = document.getElementsByTagName('span'),
+		// 	i = 0,
+		// 	j = 0,
+		// 	q = 0,
+		// 	p = 0;
+		// 	setInterval(function(){
+		// 		time[0].innerText = q;
+		// 		time[1].innerText = p;
+		// 		time[2].innerText = j;
+		// 		time[3].innerText = i;
+		// 		i++;
+		// 		if(i == 10){
+		// 			i = 0;
+		// 			j++;
+		// 		}
+		// 		if(j == 6){
+		// 			j = 0;
+		// 			p++;
+		// 		}
+		// 		if(p == 10){
+		// 			p = 0;
+		// 			q++;
+		// 		}
+		// 	}, 1000)
+			var p = g("p")[0],
+				b = g("a")[0],
+				e = g("a")[1],
+				m = 0,
+				s = 0,
+				n,
+				t;
+			function g(d){
+				return document.getElementsByTagName(d);
+			}
+			function gT(s){
+				m = Math.floor(s / 60);
+				m = m < 10 ? "0" + m : m;
+				s = s % 60;
+				s = s < 10 ? "0" + s : s;
+				return m + ":" + s;
+			}
+			b.onclick = function(){
+				if(!n){
+					t = setInterval(function(){
+					p.innerText = gT(s++);
+				}, 100);
+					n = 1;
+				}
+				
+			};
+			e.onclick = function(){
+				clearTimeout(t);
+				n = 0; 
+			};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>review</title>
+	</head>
+	<body>
+		<script>
+		var str = "零一二三四五六七八";
+		//字符串的处理
+		//字符串拼接
+		console.log("\"''\"\"'\"" );
+		str = str.concat(123);
+		console.log(str.concat(123));
+		//    \起到转意作用，不会被显示， 转意后的东西直接显示只有但斜杠以及与保卫字符串的引号一样的引号需要反斜杠转义
+		//查找字符串某个位置的字符
+		console.log(str[2]);//类似字数组的下标
+		console.log(str.charAt(2));//类似字数组的下标
+		//字符串的截取
+		console.log(str.substring(2,5));//从下标2开始，后面的下标不被截取  
+		console.log(str.substring(4));
+		console.log(str.substring(undefined,2));
+		console.log(str.substring(4,undefined));
+		console.log(str.substring(2.2,5));
+		console.log(str.substring(2.9,5));
+		console.log(str.substring(4,0));
+		//源字符串没有改变
+
+		//如果（4,0）会自动翻转（2,2）空   （4）下标四到最后  （3，大于长度取长度）不写参数取全部 前面不写参数会取0  （-2,3）（2，5.2）负数会为零，小数点自动取整
+
+		//截取2
+		console.log(str.slice(1, 2));//同substring
+		console.log(str.slice(1));//同substring
+		console.log(str.slice(-1));//反方向截取，不会自动转换参数顺序
+
+
+		// str = "0123456789";
+		// console.log(str);
+		// str[2] = "5";//无效
+		// //字符串的长度
+		// console.log(str.length);
+
+		// var str = "666666";
+		// for(var i = 0;i < str.length;i++){
+		// 	str = str.replace("6", "1");
+		// 	console.log(str);
+		// }
+
+		// var string = "66asfg6whfj6fj6fghf6fgjgf6";
+		// var len = string.length;
+		// var string2 = "";
+		// for(var i = 0;i < len;i++){
+		// 	string2 += (string[i] == 6) ? 1:string[i];
+		// }
+		// console.log(string2);
+
+
+		// var str = "sad 66asf 6dsf 6sdf66 fds6f 6sdf6dsf 6df6sdf";
+		// var len = str.length;
+		// var str2 = "";
+		// var str3 = "";
+		// for(var i = 0;i < len;i++){
+		// 	str2 += str[i] === " " ? "1"  :  str[i];
+		// 	str = str.replace("f", "1");
+		// 	str3 = str;
+		// }
+		// str = str2;
+		// console.log(str);
+		// console.log(str3);
+
+		// function replaceAll(str, replaced, replaceto){
+		// var len = str.length;
+		// for(var i = 0;i < len;i++){
+		// 	str = str.replace(replaced, replaceto);
+		// }
+		// return str;
+		// }
+		// console.log(replaceAll(replaceAll("f6fff 6sff ff6f", " ", "o"), "ff", "t"));
+
+
+		// //正则替换
+		// var str = "666666666jk66666";
+		// str = str.replace(/6/g, 3);
+		// console.log(str);
+
+		// //分割
+		// var str = "hello world";
+		// console.log(str.split("l"));
+
+		// function split(str, splitBy){
+		// 	var arr = [],
+		// 		i = 0,
+		// 		len = str.length,
+		// 		temp;
+		// 	for(;i < len;i++){
+		// 		if(str[i] === splitBy){
+		// 			arr[arr.length] = str.substring(temp || 0, i);
+		// 			temp = i+1;
+		// 		}
+		// 	}
+		// 	arr[arr.length] = str.substring(temp);
+		// 	return arr;
+		// }
+		// console.log(split("hello world", "l"));
+
+		// function substring(str, temp1, temp2){
+		// 	var len = str.length,
+		// 		string = "",
+		// 		i = 0;
+		// 	if(temp1 != undefined && temp2 != undefined && temp1 < temp2){
+		// 		for(;i < len;i++){
+		// 			if(temp1 <= i && i<temp2){
+		// 				string = string + str[i];
+		// 			}
+		// 		}
+		// 	}
+		// 	else if(temp1 != undefined && temp2 == undefined){
+		// 		for(; i < len;i++){
+		// 			if(temp1 <= i){
+		// 				string = string + str[i];
+		// 			}
+		// 		}
+		// 	}
+		// 	else if(temp1 == undefined && temp2 == undefined){
+		// 		string = str;
+		// 	}
+		// 	else if(temp1 == undefined && temp2 != undefined){
+		// 		for(; i < len;i++){
+		// 			if(temp2 <= i){
+		// 				string = string + str[i];
+		// 			}
+		// 		}
+		// 	}
+		// 	else if(temp1 != undefined && temp2 != undefined && temp1 > temp2){
+		// 			for(;i < len;i++){
+		// 				if(temp2 <= i && i<temp1){
+		// 				string = string + str[i];
+		// 			}
+		// 		}
+		// 	}
+			
+		// 	return string;
+		// }
+		console.log(substring("sassdfsdf", 2, 5));
+		console.log(substring("sassdfsdf", 2));
+		console.log(substring("sassdfsdf"));
+		console.log(substring("sassdfsdf", undefined, 5));
+		console.log(substring("sassdfsdf", 5, 2));
+		console.log(substring("sassdfsdf", NaN, 1));
+
+		function substring(str, from, to){
+			var _str = "",
+			len = str.length,
+			_from = Math.floor(from < 0 ? 0 : from),
+			_to = Math.floor(to > len ? len : to),
+			temp;
+			function getStr(from, to){
+				for(;from < to;from++){
+					_str += str[from];
+				}
+				return _str;
+			}
+			if(isNaN(from) || isNaN(to) && (typeof from !== "number" && typeof to !== "number")){
+				_str = str;
+			}
+			if(typeof from === "number" && typeof to === "number"){
+				if(_from > _to){
+					temp = _from;
+					_from = _to;
+					_to = temp;
+				}
+				_str = getStr(_from, _to);
+			}else if(typeof from === "number"){
+				_to = len;
+				_str = getStr(_from, _to);
+			}else if(typeof to === "number"){
+				_from = 0;
+				_str = getStr(_from, _to);
+			}
+			return _str;
+		}
+
+
+		//转大小写
+		console.log("sad",toUpperCase());
+		console.log("ASD",toLowerCase());
+
+
+	 	</script>
+	</body>
+</html>	

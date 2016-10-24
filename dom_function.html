@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="a.css" />
+		<link rel="stylesheet" href="b.css" />
+		<title>DOM function</title>
+		<style>
+			body{
+				background-color:yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>666666666</h1>
+		<p style="color:red; font-size:40px;">
+			<span>哈哈哈</span>
+			<a>2333</a>
+		</p>
+		<form>
+			<div class="div">
+				<select>
+					<option value="233">二三三</option>
+					<option value="666">六六六</option>
+				</select>
+				<input />
+			</div>
+		</form>
+		<img />
+		<img id="image" class="image a-img big" name="666" />
+		<img class="image" />
+		<script>
+			//浏览器为了处理HTML包装的对象
+			//document
+			console.log(document);
+
+			//html标签
+			console.log(document.documentElement);
+
+			//doctype标签
+			console.log(document.doctype);
+
+			//head标签
+			console.log(document.head);
+
+			//title值
+			console.log(document.title);
+
+			//外联link标签，DOMList集合
+			console.log(document.styleSheets);
+			console.log(document.styleSheets[0]);
+
+			//body标签
+			console.log(document.body);
+
+			//script标签，DOMList集合
+			console.log(document.scripts);
+			console.log(document.scripts[0]);
+
+			//img标签，DOMList集合
+			console.log(document.images);
+
+			//form标签，DOMList集合
+			console.log(document.forms);
+
+			//通过标签名查找DOMList集合
+			console.log(document.getElementsByTagName("meta"));
+			console.log(document.getElementsByTagName("meta")[0]);
+
+			//通过id值查找标签
+			console.log(document.getElementById("image"));
+
+			//根据css选择器查找首个匹配的标签
+			console.log(document.querySelector(".image"));
+			console.log(document.querySelector("#image"));
+			console.log(document.querySelector("img"));
+
+			//根据css选择器查找所有匹配的DOMList集合
+			console.log(document.querySelectorAll(".image"));
+			console.log(document.querySelectorAll(".image")[1]);
+
+			//复合型
+			console.log(document.head.getElementsByTagName("meta")[0]);
+			console.log(document.querySelector(".div").querySelector("select option"));
+
+			//标签id(字符串)
+			console.log(document.querySelector(".image").id); //获取
+			document.querySelector(".image").id = "images"; //设置
+
+			//标签class(字符串)
+			console.log(document.getElementById("images").className); //获取
+			document.getElementById("images").className = "werasdfaf"; //设置，覆盖重置当前标签的所有class
+
+			//标签class集合(类数组)
+			console.log(document.getElementById("images").classList); //获取
+			console.log(document.getElementById("images").classList[2]);
+			//classList修改类名
+			document.getElementById("images").classList.add("high"); //新增
+			document.getElementById("images").classList.remove("werasdfaf"); //删除
+			document.getElementById("images").classList.toggle("high"); //存在则删，不存在则增
+			document.getElementById("images").classList.toggle("high");
+			console.log(document.getElementById("images").classList.contains("werasdfaf")); //判断是否包含
+
+			//标签name(字符串)
+			console.log(document.getElementById("images").name); //获取
+			document.getElementById("images").name = "hhh"; //设置
+
+			//查询属性值
+			console.log(document.head.getElementsByTagName("link")[0].getAttribute("rel"));
+			console.log(document.head.getElementsByTagName("link")[1].getAttribute("href"));
+			console.log(document.head.getElementsByTagName("meta")[0].getAttribute("charset"));
+
+			//设置属性值
+			document.getElementById("images").setAttribute("src", "https://img.alicdn.com/tps/TB1ZZ5wKVXXXXXOXVXXXXXXXXXX-60-60.jpg_50x50.jpg");
+
+			//输入框值！！！！！不要用attribute
+			document.querySelector(".div").getElementsByTagName("input")[0].value = 233666; //设置
+			console.log(document.querySelector(".div").getElementsByTagName("input")[0].value); //获取
+
+			//下拉框值，获取当前选中的option的value！！！！！
+			console.log(document.querySelector("select").value); //获取
+			document.querySelector("select").value = 666; //设置
+
+			//标签内所有文本
+			console.log(document.getElementsByTagName("p")[0].innerText); //获取
+			document.getElementsByTagName("p")[0].innerText = "<span>666</span>"; //清空标签并设置
+			console.log(document.getElementsByTagName("p")[0].innerText);
+
+			//标签内所有内容
+			console.log(document.getElementsByTagName("p")[0].innerHTML); //获取被以HTML形式转义的内容
+			document.getElementsByTagName("p")[0].innerHTML = "<a>233</a>"; //清空标签并设置
+			console.log(document.getElementsByTagName("p")[0].innerHTML);
+
+			//行内样式
+			console.log(document.getElementsByTagName("p")[0].style.color); //获取单个单词的样式名
+			console.log(document.getElementsByTagName("p")[0].style.fontSize); //获取多个单词破折号组合的样式名
+			document.getElementsByTagName("p")[0].style.backgroundColor = "rgb(0, 255, 0)"; //设置
+			document.getElementsByTagName("p")[0].style.border = "1px solid red"; //设置
+			document.getElementsByTagName("p")[0].style.cursor = "row-resize"; //设置
+
+			//获取计算后的最终样式
+			console.log(document.defaultView.getComputedStyle(document.getElementsByTagName("p")[0], null).backgroundColor);
+
+			//创建标签
+			var div = document.createElement("div");
+			console.log(div);
+
+			//创建文本
+			var text = document.createTextNode(233);
+			console.log(text);
+
+			//创建注释
+			var comment = document.createComment("我是注释");
+			console.log(comment);
+
+			//创建碎片
+			console.log(document.createDocumentFragment());
+
+			//页面标签操作
+
+			//添加至目标标签的直接子级的最后
+			div.appendChild(text);
+			div.appendChild(comment);
+			document.querySelector(".div").appendChild(div);
+
+			//插入至目标标签之前
+			document.getElementsByTagName("p")[0].insertAdjacentElement("beforeBegin", div);
+			//插入至目标标签之后
+			document.getElementsByTagName("p")[0].insertAdjacentElement("afterEnd", div);
+			//插入至目标标签的直接子级的最前
+			document.getElementsByTagName("p")[0].insertAdjacentElement("afterBegin", div);
+			//插入至目标标签的直接子级的最后
+			document.getElementsByTagName("p")[0].insertAdjacentElement("beforeEnd", div);
+		</script>
+	</body>
+</html>

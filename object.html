@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="a.css "/>
+		<link rel="stylesheet" href="b.css "/>
+		<meta charset="utf-8">
+		<title>object</title>
+	</head>
+	<body>
+		<script>
+			//声明
+			//其构造函数为Object
+			var obj1 = {};
+
+			//其构造函数为Object
+			var obj2 = new Object({});//实例化，拷贝
+
+			//其构造函数为函数体
+			var Class1 = function A(){};
+			var obj3 = new Class1();//实例化，拷贝
+
+			//其构造函数为Class
+			function Class2(){};//构造函数
+			var obj4 = new Class2();//实例化，拷贝
+			console.log(obj1, obj2, obj3, obj4);
+				
+			//对象属性	
+			obj1.name = "Obj1";
+			obj1.id = 1;
+			obj1.code = function(time){
+				console.log("I can code for " + time + "!!!!!");
+			};
+			obj1.code("7 days");
+			console.log(obj1, obj1.name, obj1.id ,obj1.code);
+			
+			var water = {};
+			water.color = "red";
+			water.ml = 500;
+			water.price = 3;
+			water.id = 10086;
+			water.js = function(){
+				// console.log("浸湿了");
+			};
+
+			var Ashe = {
+				game : "LOL",
+				name : "Ashe",
+				ad : 250,
+				ap : 250,
+				attack_speed : 2.5,
+				armor : 200,
+				magic_resistance : 200,
+				blood : 2000,
+				magic_value : 1000,
+				speed : 400,
+				skills : ["q", "w", "e", "r"],
+				attack : function(victim){
+					// victim.blood = victim.blood - Ashe.ad - Ashe.ap;
+					console.log("来自Ashe的攻击， " + "受害者为：" + victim.name);
+					victim.hurt(Ashe.ad + Ashe.ap);
+				},
+				hurt : function(blood){
+					Ashe.blood = Ashe.blood - blood;
+					console.log("Ashe还剩" + Ashe.blood + "血量。");
+				}
+			};
+
+			var Ryze = {
+				game : Ashe.game,
+				name : "Ryze",
+				ad : 100,
+				ap : 650,
+				attack_speed : 1.5,
+				armor : 250,
+				magic_resistance : 250,
+				blood : 2222,
+				magic_value : 2222,
+				speed : 450,
+				skills : ["q", "w", "e", "r"],
+				attack : function(victim){
+					// victim.blood = victim.blood - Ryze.ap - Ryze.ad;
+					console.log("来自Ryze的攻击， " + "受害者为：" + victim.name);
+					victim.hurt(Ryze.ap + Ryze.ad);
+				},
+				hurt : function(blood){
+					Ryze.blood = Ryze.blood - blood;
+					console.log("Ryze还剩" + Ryze.blood + "血量。");
+				}
+			};
+
+			var Tryndamere = {
+				game : Ashe.game,
+				name : "Tryndamere",
+				rcd : 0,
+				ad : 500,
+				ap : 300,
+				attack_speed : 2.0,
+				armor : 200,
+				magic_resistance : 100,
+				blood : 2222,
+				magic_value : 0,
+				speed : 430,
+				skills : ["q", "w", "e", "r"],
+				attack : function(victim){	
+					// victim.blood = victim.blood - Tryndamere.ad;
+					console.log("来自Tryndamere的攻击， " + "受害者为：" + victim.name);
+					victim.hurt(Tryndamere.ap + Tryndamere.ad);
+				},
+				r : function(){
+					console.log("开启大招");
+					Tryndamere.undeadble = 1;
+					Tryndamere.rcd = 120000;
+					var timer1 = setTimeout(function(){
+						clearTimeout(timer1);
+						console.log("大招失效");
+						Tryndamere.undeadble = 0;
+					}, 5000);
+					var timer2 = setTimeout(function(){
+						clearTimeout(timer2);
+						Tryndamere.rcd = 0;
+					}, Tryndamere.rcd);
+				},
+				hurt : function(blood){
+					console.log("-----------" + blood);
+					Tryndamere.rcd || confirm("是否开启大招？") && Tryndamere.r();
+					Tryndamere.blood = Tryndamere.undeadble ? Tryndamere.blood - blood < 1 ? 1 : Tryndamere.blood - blood : Tryndamere.blood - blood;
+					if(Tryndamere.blood < 1){
+						console.log("死亡");
+						
+					}
+					console.log("Tryndamere还剩" + Tryndamere.blood + "血量。");
+
+				}
+			};
+
+			// Ashe.attack(Tryndamere);
+			// Ryze.attack(Tryndamere);
+			// // Tryndamere.attack(Ashe);
+			// var timer1 = setTimeout(function(){
+			// 	clearTimeout(timer1);
+			// 	Ashe.attack(Tryndamere);
+			// 	console.log("来自Ashe3秒的攻击");
+			// }, 3000);
+			// var timer3 = setTimeout(function(){
+			// 	clearTimeout(timer3);
+			// 	Ryze.attack(Tryndamere);
+			// 	console.log("来自Ryze5秒的攻击");
+			// }, 5000);
+			// console.log(Ashe, Ryze, Tryndamere);
+
+
+			//对象属性2
+			var obj5 = {
+				"a-3" :[1, 5, 3, {
+					a : "saasd"
+				}],
+				s :3,
+				d : "sfds",
+				f : {
+					d : ["aaa"]
+				}
+			};
+			console.log(obj5["a-3"][3].a, obj5["a-3"][3]["a"]);
+
+			//for in方法，操作对象属性名与属性值
+			for(var i in obj5){
+				console.log(i, obj5[i]);
+			}
+			//!!!!!!!拒绝使用for in遍历数组
+			var arr = [1, 5, 6];
+			arr.a = 123;
+			arr["sdas"] = 233;
+			for(var i in arr){
+				console.log(i, arr[i]);
+			}
+
+			//JSON，数组内部的对象拥有同样的属性名
+			//对象形式的JSON规范
+			var oJson = [
+				{
+					a : 1,
+					b : 2,
+					c : [3, 5, 9]
+				},
+				{
+					a : "saa",
+					b : 2,
+					c : 3
+				},
+				{
+					a : 1,
+					b : true,
+					c : "123"
+				}
+			];
+
+			//字符串形式的JSON
+			var sJson = "[{\"a\" : 1, \"b\" : 2, \"c\" : 3}, {\"a\" : \"saa\", \"b\" : 2, \"c\" : 3}, {\"a\" : 1, \"b\" : true, \"c\" : \"123\"}]";
+			// console.log(oJson, sJson);
+
+			//JSON方法
+			//将对象形式的JSON转换为字符串形式的JSON
+			console.log(JSON.stringify(oJson));
+
+			//将字符串形式的JSON转换为对象形式的JSON
+			console.log(JSON.parse(sJson));
+
+			//所有数据类型转字符串，可用在ie浏览器对对象式JSON的stringify上
+			function stringify(origin){
+				var result = "",
+					i = 0,
+					length;
+				if (typeof origin === "string"){
+					result = "\"" + origin + "\"";
+				}
+				else if(origin instanceof Array){
+					length = origin.length;
+					for(i = 0;i < length;i++){
+						result += "," + stringify(origin[i]);
+					}
+					result = "[" + result.slice(1) + "]";
+				}
+				else if(typeof origin === "object"){
+					for(i in origin){
+						result += ",\"" + i + "\":" + stringify(origin[i]);
+					}
+					result = "{" + result.slice(1) + "}"; 
+				}
+				else if(typeof origin === "function" || !isFinite(origin)){
+					result = "\"" + origin.toString() + "\"";
+				}
+				else{
+					result = origin;
+				}
+				return result;
+			}
+			console.log(stringify(oJson));
+
+			//所有字符串式数据类型转原类型，可用在ie浏览器对对象式JSON的parse上
+			function parse(origin){
+				var result,
+					i,
+					length;
+					try{
+						result = eval(origin);
+					}catch(e){
+						result = origin;
+					}
+				if (result instanceof Array){
+					length = result.length;
+					for(i = 0; i < length; i++){
+						result[i] = parse(result[i]);
+					}
+				}else if(typeof result === "object"){
+					for(i in result){
+						result[i] = parse(result[i]);
+					}
+				}
+				return result;
+			}
+			console.log(parse("[1, \"2\"]"));
+
+			//
+			var obj6 = {
+				a : []
+			};
+			obj6.b = [];
+			obj6[1] = [];
+
+			var obj7 = {
+				0 : "a",
+				1 : "b",
+				2 : "c",
+				3 : "d",
+				length : 4
+			};
+			console.log(obj7);
+			console.log(document.styleSheets);
+			console.log(document.body.childNodes);
+
+			//继承自对象
+			var arr = [1, 2, 3];
+			arr.a = 666;
+			arr.b = function(){
+				console.log(arr.a);
+			};
+			arr.b();
+
+			function func(){}
+			func.a = 233;
+			func.b = function(){
+				console.log(func.a);
+			}
+			func.b();
+		</script>
+	</body>
+</html>

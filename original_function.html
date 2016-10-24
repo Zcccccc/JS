@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>original_function</title>
+	</head>
+	<body>
+		<script>
+			var str = "string";
+			//字符串处理
+
+			//字符串拼接
+			//只有反斜杠，以及与包围字符串的引号一样的引号需要\转义
+			console.log(str + 1, str + "str", str + 1 + 2, str + "\"\\([{}]);/\"",  "\"" + str + "\"");
+			//'"'string''"
+			console.log("'\"'" + str + "''\"");
+			console.log(str.concat(123));
+
+			//查找字符串某一位
+			console.log(str[2]);
+			console.log(str.charAt(2));
+
+			//截取
+			console.log(str.substring(2, 3));//r [2, 3)
+			console.log(str.substring(0, 4));//stri [0, 4)
+			console.log(str.substring(2, 0));//st [0, 2)
+			console.log(str.substring(2, 2));// [2, 2)
+			console.log(str.substring(3, 99));//ing [3, 99 > length ? length : 99)
+			console.log(str.substring(3));//ing [3, length)
+			console.log(str.substring());//string [0, length)
+			console.log(str.substring(-2, 1.7));//s [-2 < 0 ? 0 : -2, Math.floor(1.7))
+			console.log(str);
+
+			//修改字符串
+			str = 66666;
+			console.log(str);
+			str = "66666";
+			console.log(str);
+			str[3] = "1";//无效
+			console.log(str);
+
+			//字符串长度
+			console.log(str.length);
+
+			//替换
+			console.log(str.replace("6", "1"));
+			str = str.replace("6", "1");
+			console.log(str);
+			console.log(str.replace("6666", "1111"));
+
+			console.log("-----------------------");
+			//type 1
+			var str = "6666aszxv666";
+			var i = 0;
+			var len = str.length;
+			for(; i++ < len;){
+				str = str.replace("6", "1");
+				console.log(str);
+			}
+			console.log(str);
+
+			//type 2
+			var str = "6666aszxv666";
+			var len = str.length;
+			var i = 0;
+			var _str = "";
+			for(; i < len;){
+				_str += str[i] === "6" ? "1" : str[i];
+				i++;
+				console.log(_str);
+			}
+			str = _str;
+			console.log(str);
+			console.log("-----------------------");
+
+			//封装使用
+			function replaceAll(str, replaced, replaceTo){
+				var i = 0;
+				var len = str.length;
+				for(; i++ < len;){
+					str = str.replace(replaced, replaceTo);
+				}
+				return str;
+			}
+			console.log(replaceAll(replaceAll("3336aszxv666", "3", "xyz"), "66", "1"));
+
+			//正则替换
+			console.log(str);
+			console.log(str.replace(/1/g, 3));
+
+			//分割
+			var str = "hello javascript";
+			console.log(str.split("l"));
+			//["he", "lo javascript"]
+			//["he", "", "o javascript"]
+			console.log(str.split());
+			console.log("-----------------------");
+
+			function split(str, splitBy){
+				var arr = [],
+					i = 0,
+					len = str.length,
+					temp;
+				for(;i < len; i++){
+					if(str[i] === splitBy){
+						arr[arr.length] = str.substring(temp + 1, i);
+						temp = i;
+					}
+				}
+				arr[arr.length] = str.substring(temp + 1);
+				return arr;
+			}
+			console.log(split("hello javascript", "l"));
+			console.log("-----------------------");
+
+			var str = "string";
+			function substring(str, from, to){
+				var _str = "",
+					len = str.length,
+					_from = Math.floor(from < 0 ? 0 : from),
+					_to = Math.floor(to > len ? len : to),
+					temp;
+				function getStr(from, to){
+					for(;from < to; from++){
+						_str += str[from];
+					}
+					return _str;
+				}
+				if(isNaN(from) || isNaN(to) && (typeof from !== "number" && typeof to !== "number")){
+					_str = str;
+				}
+				if(typeof from === "number" && typeof to === "number"){
+					if(_from > _to){
+						temp = _from;
+						_from = _to;
+						_to = temp;
+					}
+					_str = getStr(_from, _to);
+				}
+				if(typeof from === "number"){
+					_to = len;
+					_str = getStr(_from, _to);
+				}
+				if(typeof to === "number"){
+					_from = 0;
+					_str = getStr(_from, _to);
+				}
+				return _str;
+			}
+			console.log(substring(str, 1, 10));
+			console.log(substring(str, null, 2));
+			console.log(substring(str, -1));
+			console.log(substring(str, function(){}, []));
+			console.log(substring(str, 14.3, -2));
+			console.log(substring(str, NaN, 1));
+		</script>
+	</body>
+<html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>array function</title>
+	</head>
+	<body>
+		<script>
+			//数组方法
+			var arr = [];
+			var arr = new Array();
+			//查找某一位
+			console.log(arr[0]); //undefined
+			arr = [1, 2, 3];
+			console.log(arr[0]); //1
+			arr = [1, , 1];
+			console.log(arr); //[1, undefined, 1]
+
+			//长度
+			console.log(arr.length);
+			arr.length = arr.length - 1;
+			console.log(arr.length);
+
+			//查找某一值在数组的哪一位
+			console.log(arr.indexOf(1)); //如果indexOf无参数或参数为undefined，则相当于查找不到，返回-1，根据参数如果能被找到，则返回对应下标，字符串也有此方法
+			arr = [1, 2, 3, 2, 1];
+			console.log(arr.indexOf(2)); //返回第一个被查到的下标
+			console.log(arr.lastIndexOf(2));//返回最后一个被查到的下标
+
+			//在数组后新增一位，原数组被改变
+			console.log(arr.push(6)); //返回数组长度
+			console.log(arr);
+
+			//数组拼接
+			console.log(arr.concat([1, 233]));//返回拼接后的数组
+			console.log(arr);
+
+			//删掉数组最后一位，原数组被改变
+			console.log(arr.pop()); //返回被删掉的那一位
+			console.log(arr);
+
+			//删掉数组的第一位，原数组被改变
+			console.log(arr.shift()); //返回被删掉的那一位
+			console.log(arr);
+			console.log("-----------------");
+
+			//修改原数组，第一个参数为起始下标，第二个参数为从起始位起修改的数组长度，第三个参数起为改成什么样的内容
+			var arr = [1, 3, 6, 2, 0];
+			console.log(arr.splice(1, 2, 3, 4, 5));//返回被删除的数组集合
+			console.log(arr);
+			//文章数据
+			var articles = ["<div class=\"article\">"
+				+ "<h1>这是一个标题1</h1>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "</div>"
+				, "<div class=\"article\">"
+				+ "<h1>这是一个标题2</h1>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "</div>"
+				, "<div class=\"article\">"
+				+ "<h1>这是一个标题3</h1>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "</div>"
+			];
+			//新增文章
+			articles.splice(articles.length, 0, "<div class=\"article\">"
+				+ "<h1>这是一篇新文章</h1>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "</div>");
+			console.log(articles);
+			// //删除一篇文章
+			// articles.splice(2, 1);
+			// console.log(articles);
+			// //删除多篇文章
+			// articles.splice(2, 2);
+			// console.log(articles);
+			//改变一篇文章
+			articles.splice(0, 1, "<div class=\"article\">"
+				+ "<h1>改掉第一篇文章</h1>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "<p>这是一个段落这是一个段落</p>"
+				+ "</div>");
+			console.log(articles);
+
+			//遍历数组
+			var arr = [2, 3, 3, 6, 6, 6];
+			var len = arr.length;
+			for(var i = 0; i < len; i++){
+				console.log(arr[i]);
+			}
+
+			//forEach遍历，返回值是undefined
+			console.log(arr.forEach(function(list, index, arr){
+				console.log("<a href=\"" + index + "\">"+ list + "</a>", arr);
+			}));
+
+			//数组forEach原理(不完全版)
+			function _forEach(arr, callback){
+				var i = 0;
+				for(; i < arr.length; i++){
+					callback(arr[i], i, arr);
+				}
+			}
+			_forEach(arr, function(list, index, arr){
+				console.log(list, index, arr);
+			});
+			console.log("----------------------------------");
+
+			//map遍历，返回值为处理后的数组
+			console.log(arr.map(function(list, index, arr){
+				return list + 1;
+			}));
+			console.log(arr);
+			console.log("----------------------------------");
+
+			//数组map原理(不完全版)
+			function _map(arr, callback){
+				var _arr = [],
+					i = 0;
+				for(; i < arr.length; i++){
+					_arr.push(callback(arr[i], i, arr));
+				}
+				return _arr;
+			}
+			console.log(_map(arr, function(list, index, arr){
+				return list + 1;
+			}));
+
+			console.log("----------------------------------");
+			//filter筛选，返回值为处理后的数组
+			console.log(arr.filter(function(list, index, arr){
+				return list > 3;
+			}));
+
+			//数组filter原理(不完全版)
+			function _filter(arr, callback){
+				var _arr = [],
+					i = 0;
+				for(; i < arr.length; i++){
+					callback(arr[i], i, arr) && _arr.push(arr[i]);
+				}
+				return _arr;
+			}
+			console.log(_filter(arr, function(list, index, arr){
+				return list < 6;
+			}));
+
+			console.log("----------------------------------");
+			//find查找，返回值为首个查找到的元素
+			console.log(arr.find(function(list, index, arr){
+				return index < 2;
+			}));
+
+			//数组find原理(不完全版)
+			function _find(arr, callback){
+				var i = 0;
+				for(; i < arr.length; i++){
+					if(callback(arr[i], i, arr)){
+						return arr[i];
+					}
+				}
+			}
+			console.log(_find(arr, function(list, index, arr){
+				return index > 4;
+			}));
+
+			console.log("----------------------------------");
+			//findIndex查找下标，返回值为首个查找到的元素的下标，如果查找不到，返回-1
+			console.log(arr.findIndex(function(list, index, arr){
+				return list === 7;
+			}));
+
+			//数组findIndex原理(不完全版)
+			function _findIndex(arr, callback){
+				var i = 0;
+				for(; i < arr.length; i++){
+					if(callback(arr[i], i, arr)){
+						return i;
+					}
+				}
+				return -1;
+			}
+			console.log(_findIndex(arr, function(list, index, arr){
+				return list === 7;
+			}));
+		</script>
+	</body>
+</html>

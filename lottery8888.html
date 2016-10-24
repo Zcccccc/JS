@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>点名系统</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing:border-box;
+				font-family:Microsoft Yahei;
+			}
+			a{
+				text-decoration:none;
+				color:inherit;
+			}
+			/*公用部分*/
+			.page{
+				position:fixed;
+				top:50%;
+				left:50%;
+				width:320px;
+				height:568px;
+				background-color:white;
+				box-shadow:0 0 4px 0 rgb(204, 204, 204);
+				transform:translate(-50%, -50%);
+			}
+			.dialog{
+				position:absolute;
+				top:50%;
+				left:50%;
+				width:300px;
+				height:540px;
+				background-color:rgba(255, 255, 255, .9);
+				box-shadow:0 0 4px 0 rgb(204, 204, 204);
+				transform:translate(-50%, -50%);
+			}
+			.dialog h2{
+				text-align:center;
+				line-height:2;
+			}
+			.hidden{
+				display:none;
+			}
+			.btn{
+				width:120px;
+				height:30px;
+				text-align:center;
+				cursor:pointer;
+			}
+			.btn-bd{
+				border-width:1px;
+				border-style:solid;
+				line-height:28px;
+			}
+			.btn-bg{
+				line-height:30px;
+			}
+			.ipt-txt{
+				width:160px;
+				height:30px;
+				padding-right:8px;
+				padding-left:8px;
+			}
+			/*欢迎页*/
+			.welcome{
+				background-image:url(http://img3.imgtn.bdimg.com/it/u=3068659,3930791006&fm=206&gp=0.jpg);
+				background-size:100% 100%;
+			}
+			.welcome h1{
+				margin-top:160px;
+				margin-bottom:120px;
+				text-align:center;
+				color:red;
+			}
+			.welcome h1:after{
+				margin-left:10px;
+				content:"V0.0.1";
+				font-size:16px;
+			}
+			.welcome .btn{
+				margin:0 auto;
+				display:block;
+			}
+			.welcome .btn.start{
+				background-color:rgb(32, 192, 32);
+				color:white;
+			}
+			.welcome .btn.setting{
+				margin-top:10px;
+				background-color:rgb(138, 138, 138);
+				color:white;
+			}
+			.welcome .btn.exit{
+				margin-top:10px;
+				background-color:rgb(231, 32, 32);
+				color:white;
+			}
+			.welcome .dialog{
+				text-align:center;
+			}
+			.welcome .dialog .ipt-txt{
+				margin-top:10px;
+			}
+			.welcome .dialog .btn.sure{
+				margin-top:300px;
+				background-color:white;
+				border-color:rgb(138, 138, 138);
+				color:rgb(138, 138, 138);
+			}
+			/*加载页面*/
+			.loading{
+				background-color:black;
+			}
+			.loading .loadingText{
+				margin-top:400px;
+				text-align:center;
+				color:white;
+			}
+			.loading .loadingText:after{
+				content:"%";
+			}
+			.loading .loadingBar{
+				margin:10px auto 0;
+				width:280px;
+				height:20px;
+				border:1px solid white;
+			}
+			.loading .loadingBar .progress{
+				width:0;
+				height:100%;
+				background-color:white;
+			}
+			/*主页面*/
+			.main{
+
+			}
+			.main .header{
+				overflow:hidden;
+				padding:20px;
+			}
+			.main .footer{
+				position:absolute;
+				bottom:0;
+				width:100%;
+				border-top:1px solid rgb(204, 204, 204);
+				padding-top:10px;
+				padding-bottom:10px;
+				text-align:center;
+			}
+			.main .btn.back{
+				float:right;
+				display:block;
+				background-color:rgb(132, 132, 132);
+				color:white;
+			}
+			.main .btn.start{
+				margin:0 auto;
+				display:block;
+				background-color:rgb(32, 192, 32);
+				color:white;
+			}
+			.main .ipt-txt{
+				margin-top:10px;
+				vertical-align:middle;
+			}
+			.main .btn.congrate, .main .btn.regret{
+				margin-top:10px;
+				display:inline-block;
+				vertical-align:middle;
+				color:white;
+			}
+			.main .btn.congrate{
+				background-color:rgb(255, 128, 0);
+			}
+			.main .btn.regret{
+				background-color:rgb(132, 132, 132);
+			}
+			.main .container{
+				margin-right:20px;
+				margin-left:20px;
+			}
+			.main .box{
+				display:inline-block;
+				width:40px;
+				height:40px;
+				background-color:rgb(240, 180, 90);
+				border:1px solid rgb(204, 204, 204);
+				text-align:center;
+				line-height:40px;
+				color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="lottery">
+			<div class="page welcome">
+				<h1>点名系统</h1>
+				<a class="btn btn-bg start">开始</a>
+				<a class="btn btn-bg setting">设置</a>
+				<a class="btn btn-bg exit">退出</a>
+				<div class="dialog hidden">
+					<h2>设置</h2>
+					<input class="ipt-txt sum" value="50" />
+					<input class="ipt-txt history" placeholder="历史记录" />
+					<a class="btn btn-bd sure">确定</a>
+				</div>
+			</div>
+			<div class="page loading hidden">
+				<p class="loadingText">0</p>
+				<div class="loadingBar">
+					<div class="progress"></div>
+				</div>
+			</div>
+			<div class="page main hidden">
+				<div class="header">
+					<a class="btn btn-bg back">返回</a>
+				</div>
+				<div class="footer">
+					<a class="btn btn-bg start">开始</a>
+					<input class="ipt-txt" />
+					<a class="btn btn-bg congrate">恭喜</a>
+					<input class="ipt-txt" />
+					<a class="btn btn-bg regret">遗憾</a>
+				</div>
+			</div>
+		</div>
+		<script>
+			function Lottery(){
+				//工具
+				function qsa(selector){
+					return document.querySelectorAll(selector);
+				}
+				function qs(selector){
+					return document.querySelector(selector);
+				}
+				function isEquals(array1, array2){
+					var i = 0,
+						len1 = array1.length,
+						len2 = array2.length,
+						result = 1;
+					if(len1 !== len2){
+						return 0;
+					}else{
+						for(; i < len1; i++){
+							result = result && (array1[i] === array2[i]);
+						}
+						return result;
+					}
+				}
+				var arrHistory, needUpdate = 1;
+				//欢迎页
+				function Welcome(){
+					var lottery = qs(".lottery"),
+						btnStart = qs(".btn.start"),
+						btnSetting = qs(".btn.setting"),
+						btnExit = qs(".btn.exit"),
+						dialog = qs(".dialog");
+					//开始按钮
+					btnStart.onclick = function(){
+						Main.loading();
+					};
+					//设置按钮
+					btnSetting.onclick = function(){
+						dialog.classList.remove("hidden");
+					};
+					//退出按钮
+					btnExit.onclick = function(){
+						lottery.parentNode.removeChild(lottery);
+					};
+					//设置页
+					function Setting(){
+						var btnSure = qs(".btn.sure"),
+							iptSum = qs(".ipt-txt.sum"),
+							iptHistory = qs(".ipt-txt.history"),
+							tempHistory;
+						arrHistory = new Array(+iptSum.value);
+						//确定按钮
+						btnSure.onclick = function(){
+							tempHistory = iptHistory.value.replace(/\s/g, "");
+							arrHistory = tempHistory ? tempHistory.split(",").map(function(list){
+								return +list;
+							}) : new Array(+iptSum.value)
+							Main.setData(arrHistory);
+							dialog.classList.add("hidden");
+						};
+					}
+					Setting();
+				}
+				//主页
+				var Main = function(){
+					var btnBack = qs(".btn.back"),
+						main = qs(".page.main"),
+						container,
+						mainHistory = [];
+					//初始化
+					function Init(){
+						container && container.parentNode.removeChild(container);
+						container = document.createElement("div");
+						container.className = "container";
+						for(var i = 0, historyLen = mainHistory.length; i < historyLen; i++){
+							var ele = document.createElement("div");
+							ele.classList.add("box");
+							ele.innerText = mainHistory[i] || i + 1;
+							container.appendChild(ele);
+						}
+						main.appendChild(container);
+					}
+					//配置数据
+					function SetData(newHistory){
+						console.log(mainHistory.length, newHistory.length)
+						if(!isEquals(mainHistory, newHistory)){
+							mainHistory = newHistory;
+							Init();
+						}
+					}
+					//加载页
+					function Loading(){
+						var loading = qs(".page.loading"),
+							loadingText = qs(".loadingText"),
+							progress = qs(".progress"),
+							progressValue = 0,
+							progressTimer,
+							delayTimer;
+						loading.classList.remove("hidden");
+						progressValue = 0;
+						progressTimer = setInterval(function(){
+							if(progressValue < 100){
+								progressValue += Math.ceil(Math.random() * 5);
+								progressValue = Math.min(100, progressValue);
+								progress.style.width = progressValue + "%";
+								loadingText.innerText = progressValue;
+							}else{
+								clearInterval(progressTimer);
+								delayTimer = setTimeout(function(){
+									clearTimeout(delayTimer);
+									progress.style.width = 0;
+									loading.classList.add("hidden");
+									main.classList.remove("hidden");
+									SetData(arrHistory);
+								}, 500);
+							}
+						}, 100);
+					}
+					//返回按钮
+					btnBack.onclick = function(){
+						main.classList.add("hidden");
+					};
+					return {
+						loading : Loading,
+						setData : SetData
+					};
+				}();
+				Welcome();
+			}
+			//初始化
+			Lottery();
+		</script>
+	</body>
+</html>

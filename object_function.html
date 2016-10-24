@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>object</title>
+	<body style = "height : 1000px">
+		<script>
+			//声明构造函数，类
+			// function People(a){//首字母大写构造函数名
+			// 	console.log(a);
+			// }
+			// //实例化，添加一份拷贝,同时添加constructor属性的值为构造函数本身，并执行构造函数，返回值为对象自变量
+			// var jerry = new People;
+
+			// //为jerry对象添加属性
+			// jerry.name = 'jerry';
+			// console.log(jerry);
+
+			// //对象自变量，单例对象
+			// var obj = {
+			// 	name : "jerry"
+			// };
+			// // console.log(obj);//obj的构造函数是Object
+
+			// var tom = new People(11);
+			// tom.name = "tom";
+
+			// var mike = new People(22);
+			// mike.age = 3;
+			// // console.log(mike)
+			// // console.log(new People());
+			// // console.log(tom);
+			// // console.log(jerry.constructor);
+
+			// //角色构造函数
+			// function Role(option, attack){
+			// 	this.name = option.name;
+			// 	this.blood = option.blood;
+			// 	this.strength = option.strength;
+			// 	this.attack = attack;
+			// 	console.log(this);
+			// 	var _this = this;
+			// 	document.body.onmousedown = function(){
+			// 		_this.blood = 1;
+			// 		this.style.backgroundColor = 'blue';
+			// 	}
+
+			// }
+			// var trydemare = new Role({
+			// 	name : "Trydemare",
+			// 	blood : 500,
+			// 	strength : 75
+			// }, function(){
+			// 		console.log("I attack");
+			// 	});
+			// // console.log(trydemare);
+			// trydemare.attack();
+
+			// var obj1 = {
+			// 	a : 1,
+			// 	b : function(){
+			// 		console.log(this);
+			// 	} ,
+			// 	c : {
+			// 		a : 1,
+			// 		b : function(){
+			// 			console.log(this);
+			// 		},
+			// 		c : function(){
+			// 			var _this = this;
+			// 			// console.log(this);
+			// 			this.a = 233;
+			// 			document.body.onclick = function(){
+			// 				_this.a = 666;
+			// 				// console.log(obj1);
+			// 				this.style.backgroundColor = 'green';
+			// 			}
+
+			// 		}
+			// 	}
+			// };
+			// obj1.b();
+			// obj1.c.b();
+			// obj1.c.c();
+
+			// // document.body.onclick = function(){
+			// // 	this.style.backgroundColor = 'green';
+			// // }
+
+			// function Button(option){
+			// 	var i,//i是字符串
+			// 		style = option.style,
+			// 		_this = this;
+			// 	this.dom = document.createElement("button");
+			// 	this.name = option.name;
+			// 	this.dom.innerText = option.name;
+			// 	for(i in style){
+			// 		this.dom.style[i] = style[i];
+			// 	}
+			// 	this.dom.onclick = function(){
+			// 		alert(_this.name);
+			// 		alert(this.innerText);
+			// 	};
+			// 	document.body.appendChild(this.dom);
+			// }
+			// console.log(new Button({
+			// 	name : "按钮",
+			// 	style : {
+			// 		backgroundColor : "red",
+			// 		border : "none",
+			// 		color : "white"
+			// 	}
+			// }));
+
+			// function Select(option){
+			// 	var i,
+			// 		opt = option.option,
+			// 		_this = this;
+			// 		console.log(opt);
+			// 		this.sel = document.createElement("select");
+			// 		for(i = 0; i < opt.length; i++){
+			// 			var opt1 = opt[i];
+			// 			console.log(opt1);
+			// 			this.sel.options.add(new Option(opt1.name, opt1.value)); 	
+			// 		}
+			// 		this.change = option.change;
+			// 		this.sel.onclick = function(){
+			// 			_this.change(_this.sel.value);
+			// 		}
+			// 		document.body.appendChild(this.sel);
+					
+
+			// }
+
+
+			//匿名函数内部的this指向window对象（顶层对象），如回调，setTimeout，自执行函数
+			//函数声明操作的内部this指向window（顶层对象）
+			//window顶层对象
+
+			function Select(option){
+				var _this = this;
+					this.option = option.option;
+					function Option(option){
+						this.dom = document.createElement("option");
+						this.dom.innerText = option.name;
+						this.dom.value = option.value; 
+					}
+					this.dom = document.createElement("select");
+					this.option.forEach(function(item){
+						_this.dom.appendChild(new Option(item).dom);
+					});
+					this.dom.onchange = function(e){
+						option.change(e.target.value)
+					}
+					document.body.appendChild(this.dom);
+			}
+			new Select({
+				option : [
+					{
+						name : "一年级",
+						value : "01a"
+					},
+					{
+						name : "二年级",
+						value : "02b"
+					},
+					{
+						name : "三年级",
+						value : "03c"
+					}
+				],
+				change : function(value){//参数为下拉框的value
+					console.log(value);
+				}
+
+			});
+
+			var slt1 = Select({
+				option : [
+					{
+						name : "一年级",
+						value : "01a"
+					},
+					{
+						name : "二年级",
+						value : "02b"
+					},
+					{
+						name : "三年级",
+						value : "03c"
+					}
+				],
+				change : function(value){//参数为下拉框的value
+					console.log(value);
+				}
+
+			});
+			console.log(slt1);
+			
+		</script>
+	</body>
+</html

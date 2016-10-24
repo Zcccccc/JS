@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="a.css "/>
+		<link rel="stylesheet" href="b.css "/>
+		<title>DOM function</title>
+		<style>
+			body{
+				background-color: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>sad</h1>
+		<p style = "color:red; font-size:40px">
+			<span>
+				asdsdsd
+			</span>
+			<a >
+				ccccc
+			</a>
+		</P>
+		<form>飒飒的撒</form>
+		<img />
+		<img id="image" class="123 asd bb cc" name="666" />
+		<img class="image" />
+		<img class="image" />
+		<img class="image" />
+		<div id = "div">
+			<select>
+				<option value="233">
+					
+				</option>
+			</select>
+		</div>
+		<div class = "div">
+			<select>
+				<option value="666">
+				
+				</option>
+			</select>
+			<input />
+		</div>
+		<div>
+			<a>3333</a>
+		</div>
+		<a>4444</a>
+		<script>
+			//浏览器为了处理HTML包装的对象
+			//document
+			console.log(document);
+
+			//html标签
+			console.log(document.documentElement);
+
+			//doctype标签
+			console.log(document.doctype);
+
+			//head标签
+			console.log(document.head);
+
+			//title值
+			console.log(document.title);
+
+			//外联link标签, NodeList集合
+			console.log(document.styleSheets);
+                                                                                                                                                                                                                             
+			//body标签
+			console.log(document.body);
+
+			//script标签
+			console.log(document.scripts);
+
+			//a标签，NodeList集合
+			console.log(document.anchors);
+
+			//img标签，NodeList集合
+			console.log(document.images);
+
+			//form标签，NodeList集合
+			console.log(document.forms);
+
+			//标签名集合
+			console.log(document.getElementsByTagName("meta"));
+
+			//通过id值查找标签
+			console.log(document.getElementById("image"));
+
+			//通过css选择器查找首个匹配的标签    ie7,8不可用
+			console.log(document.querySelector(".image"));
+			console.log(document.querySelector("#image"));
+			console.log(document.querySelector("img"));
+
+			//通过css选择器查找所有匹配的NodeList集合
+			console.log(document.querySelectorAll(".image"));
+
+			//复合型
+			console.log(document.head.getElementsByTagName("meta")[0]);
+			console.log(document.querySelector("#div").querySelector("select option"));
+
+			//标签id
+			console.log(document.getElementById("image").id);//获取
+			// document.getElementById("image").id = "images"//设置
+			console.log(document.getElementById("image").className);
+			// document.getElementById("image").className = "asdsd"//设置，覆盖重置当前标签所有的class
+
+			//标签class集合类数组
+			console.log(document.getElementById("image").classList[0]);
+
+			//修改类名
+			document.getElementById("image").classList.add("hign");
+			console.log(document.getElementById("image").className);
+			document.getElementById("image").classList.remove("bb");
+			console.log(document.getElementById("image").className);
+			document.getElementById("image").classList.toggle("rr");//存在则删，不存在则添加
+			console.log(document.getElementById("image").className);
+			document.getElementById("image").classList.toggle("rr");//存在则删，不存在则添加
+			console.log(document.getElementById("image").className);
+			console.log(document.getElementById("image").classList.contains("hi"));
+
+			//标签name
+			console.log(document.getElementById("image").name);
+			document.getElementById("image").name = "ppp";
+			console.log(document.getElementById("image").name);
+
+			//查询属性
+			console.log(document.head.getElementsByTagName("link")[0].getAttribute("rel"));
+			console.log(document.head.getElementsByTagName("link")[1].getAttribute("href"));
+			console.log(document.head.getElementsByTagName("meta")[0].getAttribute("charset"));
+
+			//设置属性值
+			document.getElementById("image").setAttribute("src","https://img.alicdn.com/tps/TB1apthLpXXXXX9aFXXXXXXXXXX-60-60.png_80x80.jpg");
+
+			//输入框值!!!!!!!!!不要用attribute
+			document.querySelector(".div").getElementsByTagName("input")[0].value = "233666";
+			console.log(document.querySelector(".div").getElementsByTagName("input")[0].value);
+
+			//下拉框值,获取当前选中的option的value
+			console.log(document.querySelector("select").value);
+			document.getElementsByTagName("option").value = "333";
+
+			//标签内所有文本
+			console.log(document.getElementsByTagName("p")[0].innerText);
+			document.getElementsByTagName("p")[0].innerText = "<span>6666</span>";//清空标签并设置
+			console.log(document.getElementsByTagName("p")[0].innerText);
+
+			//标签内的所有内容
+			console.log(document.getElementsByTagName("p")[0].innerHTML);//获取被HTML转义的内容
+			document.getElementsByTagName("p")[0].innerHTML = "<span>123</span>";//清空标签并设置
+			console.log(document.getElementsByTagName("p")[0].innerHTML);
+
+			//行内样式
+			console.log(document.getElementsByTagName("p")[0].style.color);
+			console.log(document.getElementsByTagName("p")[0].style.fontSize);
+			document.getElementsByTagName("p")[0].style.backgroundColor = "green";
+			document.getElementsByTagName("p")[0].style.border = "1px red solid";
+			document.getElementsByTagName("p")[0].style.cursor = "row-resize";
+
+			//获取计算后的最终样式
+			console.log(document.defaultView.getComputedStyle(document.body,null).backgroundColor);
+
+			//创建标签
+			var div = document.createElement("div");
+			console.log(div);
+
+			//创建文本
+			var text = document.createTextNode(2333);
+			console.log(text);
+
+			//创建注释
+			var comment =document.createComment("woshizhushi");
+			console.log(comment);
+
+			//创建碎片
+			console.log(document.createDocumentFragment());
+
+			//页面标签操作
+
+			//添加到目标标签的子集的最后
+			div.appendChild(text);
+			div.appendChild(comment);
+			document.querySelector(".div").appendChild(div);
+
+			//插入至目标标签之前
+			document.getElementsByTagName("p")[0].insertAdjacentElement("beforeBegin", div);
+
+			//插入至目标标签之后
+			document.getElementsByTagName("p")[0].insertAdjacentElement("afterEnd", div);
+
+			//插入至目标标签的直接子集的最前面
+			document.getElementsByTagName("p")[0].insertAdjacentElement("afterBegin", div);
+
+			//插入至目标标签的直接子集的最后面
+			document.getElementsByTagName("p")[0].insertAdjacentElement("beforeEnd", div);
+   			
+   			//添加至目标标签之前
+			document.getElementsByTagName("p")[0].insertAdjacentHTML("beforeBegin", "<div>哔哔哔哔哔哔哔哔哔哔哔哔</div>");
+
+			//添加至目标标签之后
+			document.getElementsByTagName("p")[0].insertAdjacentHTML("afterEnd", "<div>啪啪啪啪啪啪啪</div>");
+
+			//添加至目标标签的直接子集的最前面
+			document.getElementsByTagName("p")[0].insertAdjacentHTML("afterBegin", "<div>哈哈哈哈哈哈哈哈哈</div>");
+
+			//添加至目标标签的直接子集的最后面
+			document.getElementsByTagName("p")[0].insertAdjacentHTML("beforeEnd", "<div>大大大大大大大大大</div>");
+
+			//删掉标签
+			document.body.removeChild(document.querySelector("h1"));
+
+			//替换目标标签的子标签为另一个已有标签
+			//被替换的一定是直接子集
+			document.body.replaceChild(document.getElementsByTagName("img")[1],document.getElementsByTagName("img")[2]);//前面换后面
+
+			//拷贝标签
+			console.log(document.forms[0].cloneNode());//拷贝目标标签不包括子标签
+			console.log(document.forms[0].cloneNode(1));//包括子标签（true）
+
+			//查找目标标签的父元素
+			console.log(document.body.parentNode);
+			console.log(document.querySelector(".div".parentNode));
+
+			//查找目标标签的子元素NodeList集合,包括换行一级缩进的文本会被认作子元素
+			console.log(document.forms[0].childNodes);
+
+			//查找目标标签的紧邻的下一个兄弟元素
+			console.log(document.forms[0].nextSibling);
+ 
+			//查找目标标签的紧邻的上一个兄弟元素
+			console.log(document.forms[0].previousSibling);
+
+			//查找目标标签的紧邻的上一个兄弟标签
+			console.log(document.forms[0].previousElementSibling);
+
+			//查找目标标签的紧邻的下一个兄弟标签
+			console.log(document.forms[0].nextElementSibling);
+
+			//节点类型
+			console.log(document.createElement("div").nodeType);//标签节点属性为1
+			console.log(document.createAttribute("href").nodeType);//属性为2
+			console.log(document.createTextNode("233").nodeType);//文本3
+			console.log(document.createComment("666").nodeType);//注释节点8
+			console.log(document.nodeType);//文档节点类型9
+			console.log(document.doctype.nodeType);//文档声明类型10
+			console.log(document.createDocumentFragment().nodeType);//文档随性类型10
+
+			function selectChildElements(element){
+				var result = [];
+				var result2 = [];
+				console.log(element.childNodes);
+				result = element.childNodes;
+				for(var i = 0;i < result.length;i++){
+					if(result[i].nodeType === 1){
+						result2.push(result[i]);
+					}
+				}
+				return result2;
+			}
+			console.log(selectChildElements(document.body));
+
+			//所有子标签
+			function selectAllChildElements(element){
+				var result = [],
+					_result = [];
+				console.log(element.childNodes);
+				childNodes = element.childNodes;
+				for(var i = 0;i < childNodes.length;i++){
+					if(result[i].nodeType === 1){
+						result.push(childNodes[i]);
+						_result = selectAllChildElements(childNodes[i]);
+						if(_result.length){
+							for(var j = 0;j < _result.length;j++){
+								result.push(_result[j]);
+							}
+						}
+
+					}
+				}
+				return result;
+			}
+			console.log(selectChildElements(document.body));
+
+			//删除目标标签
+			function remove(element){
+				var i = 0,
+					length = element.length;
+				if(element.length){
+					for(; i < length; i++){
+						element[i].parentNode.removeChild(element[i]);
+					}
+				}else{
+						element.parentNode.removeChild(element);
+				}
+			
+
+			}
+			remove(document.querySelectorAll("a")[0]);
+
+
+			//清空目标标签
+			function empty(elements, type){
+				var i = 0,
+					length = elements.length;
+			switch(type){
+				case 1:
+				if(elements.nodeName){
+					elements.innerText = "";
+				}else{
+					console.log(elements);
+					for(; i < length; i++){
+						elements[i].innerText = "";
+					}
+				}
+				break;
+				case 2:
+				if(elements.nodeName){
+					elements.innerHTML = "";
+				}else{
+					for(; i < length; i++){
+						elements[i].innerHTML = "";
+					}
+				}
+				break;
+				case 3:
+				if(elements.nodeName){
+					elements.parentNode.replaceChild(elements.cloneNode(), elements);
+				}else{
+					 for(; i < length; i++){
+						elements[i].parentNode.replaceChild(elements[i].cloneNode(), elements[i]);
+					}
+				}
+				break;
+			}
+		}
+		empty(document.querySelectorAll("div"),3);
+
+		</script>
+	</body>
+</html><!-- http://n.sinaimg.cn/news/olympic16/blk/upload/img/ico_gold_c.png
+http://n.sinaimg.cn/news/olympic16/blk/upload/img/ico_gold_c.png
+http://n.sinaimg.cn/news/olympic16/blk/upload/img/ico_silver_c.png -->

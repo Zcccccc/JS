@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>点名系统</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing:border-box;
+				font-family:Microsoft Yahei;
+			}
+			a{
+				text-decoration:none;
+				color:inherit;
+			}
+			/*公用部分*/
+			.page{
+				position:fixed;
+				top:50%;
+				left:50%;
+				width:320px;
+				height:568px;
+				box-shadow:0 0 4px 0 rgb(204, 204, 204);
+				transform:translate(-50%, -50%);
+			}
+			.dialog{
+				position:absolute;
+				top:50%;
+				left:50%;
+				width:300px;
+				height:540px;
+				background-color:rgba(255, 255, 255, .9);
+				box-shadow:0 0 4px 0 rgb(204, 204, 204);
+				transform:translate(-50%, -50%);
+			}
+			.dialog h2{
+				text-align:center;
+				line-height:2;
+			}
+			.hidden{
+				display:none;
+			}
+			.btn{
+				width:120px;
+				height:30px;
+				text-align:center;
+				cursor:pointer;
+			}
+			.btn-bd{
+				border-width:1px;
+				border-style:solid;
+				line-height:28px;
+			}
+			.btn-bg{
+				line-height:30px;
+			}
+			.ipt-txt{
+				width:160px;
+				height:30px;
+			}
+			/*欢迎页*/
+			.welcome{
+				background-image:url(http://img3.imgtn.bdimg.com/it/u=3068659,3930791006&fm=206&gp=0.jpg);
+				background-size:100% 100%;
+			}
+			.welcome h1{
+				margin-top:160px;
+				margin-bottom:120px;
+				text-align:center;
+				color:red;
+			}
+			.welcome h1:after{
+				margin-left:10px;
+				content:"V0.0.1";
+				font-size:16px;
+			}
+			.welcome .btn{
+				margin:0 auto;
+				display:block;
+			}
+			.welcome .btn.start{
+				background-color:rgb(32, 192, 32);
+				color:white;
+			}
+			.welcome .btn.setting{
+				margin-top:10px;
+				background-color:rgb(138, 138, 138);
+				color:white;
+			}
+			.welcome .btn.exit{
+				margin-top:10px;
+				background-color:rgb(231, 32, 32);
+				color:white;
+			}
+			.welcome .dialog{
+				text-align:center;
+			}
+			.welcome .dialog .ipt-txt{
+				margin-top:10px;
+			}
+			.welcome .dialog .btn.sure{
+				margin-top:300px;
+				background-color:white;
+				border-color:rgb(138, 138, 138);
+				color:rgb(138, 138, 138);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page welcome">
+			<h1>点名系统</h1>
+			<a class="btn btn-bg start">开始</a>
+			<a class="btn btn-bg setting">设置</a>
+			<a class="btn btn-bg exit">退出</a>
+			<div class="dialog hidden">
+				<h2>设置</h2>
+				<input class="ipt-txt" value="50" />
+				<input class="ipt-txt" placeholder="历史记录" />
+				<a class="btn btn-bd sure">确定</a>
+			</div>
+		</div>
+		<div class="page hidden">
+		</div>
+		<div class="page hidden">
+		</div>
+		<script>
+			function qsa(selector){
+				return document.querySelectorAll(selector);
+			}
+			function qs(selector){
+				return document.querySelector(selector);
+			}
+			var btnSetting = qs(".btn.setting"),
+				btnSure = qs(".btn.sure"),
+				dialog = qs(".dialog");
+			btnSetting.onclick = function(){
+				dialog.classList.remove("hidden");
+			};
+			btnSure.onclick = function(){
+				dialog.classList.add("hidden");
+			};
+		</script>
+	</body>
+</html>

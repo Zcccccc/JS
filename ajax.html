@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ajax</title>
+	</head>
+	<body>
+		<!-- 同步提交表单 -->
+		<!-- get请求 -->
+		<form action="http://www.ikindness.cn/api/test/getProduct"><!-- _blank提交后跳到一个新的页面 -->
+			<p name="pa">asd</p><!-- 其他没有value属性的标签内的所有value都不能被提交 -->
+			<input name="haha" />
+			<select name="sort">
+				<option value="1">升序</option>
+				<option value="2">降序</option>
+				<option value="0">无序</option>
+			</select>
+			<input type="submit" />
+		</form>
+
+		<!-- post请求 -->
+		<form method="post" action="http://www.ikindness.cn/api/test/post" target="_blank">
+			<p name="pa">asd</p><!-- 其他没有value属性的标签内的所有value都不能被提交 -->
+			<input name="tel" />
+			<input name="password" />
+			<input name="code" />
+			<select name="ahaha">
+				<option value="01a">一年级</option>
+				<option value="02b">二年级</option>
+				<option value="03c">三年级</option>
+			</select>
+			<input type="submit" />
+		</form>
+
+		<script>
+			function ajax(option){
+				//宿主对象 XMLHttpRequest
+				var xhr = new XMLHttpRequest(),
+				 	type = option.type,
+				 	data = option.data;
+				//readyState
+				//0 未打开请求
+				//1 打开请求
+				//2 请求发送成功
+				//3 服务端成功接收请求
+				//4 服务端响应成功
+				function queryString(data){
+					var str = "",
+						i;
+						for(i in data){
+							str += "&" + i + "=" + data[i];
+						}
+						return str.slice(1);
+				}
+				xhr.onreadystatechange = function(){
+					console.log(["请求未发送", "请求打开", "请求发送成功" , "服务端成功接收请求", "服务端响应成功"][xhr.readyState]);
+					if (xhr.readyState === 4 && xhr.status ===200 && option.s) {
+						console.log(JSON.parse(xhr.responseText));	
+					};
+				};
+				
+				//post
+				//打开请求
+				xhr.open("post", "http://www.ikindness.cn/api/test/post", 1);
+				//设置请求头
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				//发送请求
+				xhr.send("a=666");
+
+				//get
+				//打开请求
+				xhr.open("get", "http://www.ikindness.cn/api/test/get", 1);//0同步,1异步
+				//发送请求
+				xhr.send(null);
+			}
+		ajax({
+			type : "get",
+			url :  "http://www.ikindness.cn/api/test/post",
+			dataType : "json",
+			data : {
+				a : 233
+			}
+			async : 1,
+			success : function(data){
+				console.log(data);
+			}
+		})
+
+		</script>
+	</body>
+</html>
